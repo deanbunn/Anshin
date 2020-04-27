@@ -10,13 +10,22 @@ bckuser=$(id -u -n)
 bckfldr="/home/$bckuser/Insync/Dark_Backups/"
 
 #Var for Backup File for Documents Folder Daily
-bckfiledoc=$bckfldr$bckhost"_documents_$(date +'%Y%m%d').zip"
+bckfiledoc=$bckfldr$bckhost"_$(date +'%Y%m%d')_documents.zip"
 
 #Var for Backup File for Remmina Settings
-bckfileremmina=$bckfldr$bckhost"_remminas_$(date +'%Y%m%d').zip"
+bckfileremmina=$bckfldr$bckhost"_$(date +'%Y%m%d')_remminas.zip"
 
 #Var for Backup File for Pictures 
-bckfilepics=$bckfldr$bckhost"_pictures_$(date +'%Y%m%d').zip"
+bckfilepics=$bckfldr$bckhost"_$(date +'%Y%m%d')_pictures.zip"
+
+#Var for Backup File for Background Pics
+bckfilebackgrounds=$bckfldr$bckhost"_$(date +'%Y%m%d')_backgrounds.zip"
+
+#Var for Backup File for SSH 
+bckfilessh=$bckfldr$bckhost"_$(date +'%Y%m%d')_ssh.zip"
+
+#Var for Backup File for Vim
+bckfilevim=$bckfldr$bckhost"_$(date +'%Y%m%d')_vim.txt"
 
 #Check for Daily Already Taken
 if [ ! -f $bckfiledoc ]; then
@@ -29,6 +38,15 @@ if [ ! -f $bckfiledoc ]; then
 
 	#Zip Command to Backup Pictures Folder
 	zip -r $bckfilepics /home/$bckuser/Pictures
+
+	#Zip Command to Backup Backgrounds
+	zip -r $bckfilebackgrounds /home/$bckuser/.local/share/backgrounds
+
+	#Zip Command to Backup SSH
+	zip -r $bckfilessh /home/$bckuser/.ssh 
+
+	#Copy Command to Backup VIM Config
+	cp /home/$bckuser/.vimrc $bckfilevim
 
 fi
 
