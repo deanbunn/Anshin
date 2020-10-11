@@ -7,7 +7,7 @@ bckhost=$(uname -n)
 bckuser=$(id -u -n)
 
 #Var for Backup Directory
-bckfldr="/home/$bckuser/Insync/Dark_Backups/"
+bckfldr="/home/$bckuser/Insync/deanbunn@gmail.com/Dark_Backups/"
 
 #Var for Backup File for Documents Folder Daily
 bckfiledoc=$bckfldr$bckhost"_$(date +'%Y%m%d')_documents.zip"
