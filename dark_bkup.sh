@@ -50,5 +50,5 @@ if [ ! -f $bckfiledoc ]; then
 
 fi
 
-#Remove Backup Files Older than 14 Days for this System
-find $bckfldr -mtime +7 -name $bckhost* -type f -delete
+#Remove Backup Files Older than 5 Days for this System
+find $bckfldr -mtime +5 -name $bckhost* -type f -delete
