@@ -1,6 +1,6 @@
 <#
     Script: dark_bkup.ps1
-    Last Edited: 2021-05-17
+    Last Edited: 2021-10-11
 #>
 
 #Add Compression Assembly to Instance
@@ -13,7 +13,6 @@ $arrBackupSrcs = @();
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\Repos"; BackupFileName="_repos.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\DevOps"; BackupFileName="_devops.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\RDPHosts"; BackupFileName="_rdphosts.zip"; });
-$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\UCDTermReports"; BackupFileName="_ucdtermreports.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Pictures"; BackupFileName="_pictures.zip"; });
 
 #Var for Host
