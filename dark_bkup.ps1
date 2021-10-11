@@ -1,5 +1,6 @@
 <#
     Script: dark_bkup.ps1
+    Author: Dean Bunn
     Last Edited: 2021-10-11
 #>
 
