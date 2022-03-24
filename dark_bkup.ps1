@@ -1,7 +1,7 @@
 <#
     Script: dark_bkup.ps1
     Author: Dean Bunn
-    Last Edited: 2021-10-11
+    Last Edited: 2022-03-24
 #>
 
 #Add Compression Assembly to Instance
@@ -12,7 +12,6 @@ $arrBackupSrcs = @();
 
 #Load Custom Backup Objects
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\Repos"; BackupFileName="_repos.zip"; });
-$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\DevOps"; BackupFileName="_devops.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\RDPHosts"; BackupFileName="_rdphosts.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Pictures"; BackupFileName="_pictures.zip"; });
 
@@ -29,7 +28,7 @@ $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Pictures"
 [string]$bckUsrPrfldr = "C:\Users\" + $bckuser;
 
 #Var Backup Location (Sync'd with Insync)
-[string]$bckfldr = $bckUsrPrfldr + "\Insync\deanbunn@gmail.com\Dark_Backups";
+[string]$bckfldr = $bckUsrPrfldr + "\Documents\Dark_Backups";
 
 
 #Check to See Local Backup Location Exists
@@ -56,12 +55,10 @@ if(Test-Path $bckfldr)
        
     }#End of $arrBackupSrcs Foreach
 
-
     #Var for Remove Backups Date
-    [datetime]$rmvDate = (Get-Date).AddDays(-5);
+    [datetime]$rmvDate = (Get-Date).AddDays(-7);
 
     #Remove Old Backup Items
-    Get-ChildItem -Path $bckfldr | Where {$_.CreationTime -lt $rmvDate -and $_.Name.StartsWith($bckhost.ToLower()) } | Remove-Item -Force #-Recurse
-
+    Get-ChildItem -Path $bckfldr | Where-Object {$_.CreationTime -lt $rmvDate -and $_.Name.StartsWith($bckhost.ToLower()) } | Remove-Item -Force #-Recurse
 
 }#End of Test Path on Backup Folder Location
