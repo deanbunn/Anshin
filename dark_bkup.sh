@@ -7,7 +7,20 @@ bckhost=$(uname -n)
 bckuser=$(id -u -n)
 
 #Var for Backup Directory
-bckfldr="/home/$bckuser/Insync/deanbunn@gmail.com/Dark_Backups/"
+bckfldr="/home/$bckuser/DarkBackups/$bckhost""_$(date +'%Y%m%d')/"
+
+#Check for Backup Folder
+if [ ! -e $bckfldr ]; then
+
+    mkdir $bckfldr
+
+fi
+
+#Var for Backup File for DarkDocs Folder Daily
+bckfiledarkdocs=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkdocs.zip"
+
+#Var for Backup File for DarkRepos Folder Daily
+bckfiledarkrepos=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkrepos.zip"
 
 #Var for Backup File for Documents Folder Daily
 bckfiledoc=$bckfldr$bckhost"_$(date +'%Y%m%d')_documents.zip"
@@ -30,6 +43,12 @@ bckfilevim=$bckfldr$bckhost"_$(date +'%Y%m%d')_vim.txt"
 #Check for Daily Already Taken
 if [ ! -f $bckfiledoc ]; then
 
+	#Zip Command to Backup DarkDocs Folder
+	zip -r $bckfiledarkdocs /home/$bckuser/DarkDocs
+
+	#Zip Command to Backup DarkRepos Folder
+	zip -r $bckfiledarkrepos /home/$bckuser/DarkRepos
+
 	#Zip Command to Backup Documents Folder
 	zip -r $bckfiledoc /home/$bckuser/Documents
 
@@ -51,4 +70,4 @@ if [ ! -f $bckfiledoc ]; then
 fi
 
 #Remove Backup Files Older than 5 Days for this System
-find $bckfldr -mtime +5 -name $bckhost* -type f -delete
+#find $bckfldr -mtime +5 -name $bckhost* -type f -delete

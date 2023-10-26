@@ -11,8 +11,7 @@ Add-Type -assembly "system.io.compression.filesystem";
 $arrBackupSrcs = @();
 
 #Load Custom Backup Objects
-$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\Repos"; BackupFileName="_repos.zip"; });
-$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Documents\RDPHosts"; BackupFileName="_rdphosts.zip"; });
+$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\.aws"; BackupFileName="_aws.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\.ssh"; BackupFileName="_nogler.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Pictures"; BackupFileName="_pictures.zip"; });
 
@@ -29,7 +28,7 @@ $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Pictures"
 [string]$bckUsrPrfldr = "C:\Users\" + $bckuser;
 
 #Var Backup Location (Sync'd with Insync)
-[string]$bckfldr = $bckUsrPrfldr + "\Documents\Dark_Backups";
+[string]$bckfldr = $bckUsrPrfldr + "\DarkDocuments\DarkBackups";
 
 
 #Check to See Local Backup Location Exists
