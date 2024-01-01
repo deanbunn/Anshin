@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#Var for Uptime Wait Seconds Before Creating Backups
+bckwaitseconds=1800
+
 #Var for Host 
 bckhost=$(uname -n)
 
@@ -17,7 +20,7 @@ if [ ! -e $bckfldr ]; then
 fi
 
 #Var for Backup File for DarkDocs Folder Daily
-bckfiledarkdocs=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkdocs.zip"
+#bckfiledarkdocs=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkdocs.zip"
 
 #Var for Backup File for DarkRepos Folder Daily
 bckfiledarkrepos=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkrepos.zip"
@@ -41,10 +44,10 @@ bckfilessh=$bckfldr$bckhost"_$(date +'%Y%m%d')_ssh.zip"
 bckfilevim=$bckfldr$bckhost"_$(date +'%Y%m%d')_vim.txt"
 
 #Check for Daily Already Taken
-if [ ! -f $bckfiledoc ]; then
+if [ $(awk '{print int($1)}' /proc/uptime) -gt $bckwaitseconds ] && [ ! -f $bckfiledoc ]; then
 
 	#Zip Command to Backup DarkDocs Folder
-	zip -r $bckfiledarkdocs /home/$bckuser/DarkDocs
+	#zip -r $bckfiledarkdocs /home/$bckuser/DarkDocs
 
 	#Zip Command to Backup DarkRepos Folder
 	zip -r $bckfiledarkrepos /home/$bckuser/DarkRepos
