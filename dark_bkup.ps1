@@ -1,7 +1,7 @@
 <#
     Script: dark_bkup.ps1
     Author: Dean Bunn
-    Last Edited: 2022-04-09
+    Last Edited: 2024-06-01
 #>
 
 #Add Compression Assembly to Instance
@@ -11,9 +11,11 @@ Add-Type -assembly "system.io.compression.filesystem";
 $arrBackupSrcs = @();
 
 #Load Custom Backup Objects
-$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\.aws"; BackupFileName="_aws.zip"; });
+#$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\.aws"; BackupFileName="_aws.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\.ssh"; BackupFileName="_nogler.zip"; });
 $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Pictures"; BackupFileName="_pictures.zip"; });
+$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\DarkDocs"; BackupFileName="_documents.zip"; });
+$arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\source"; BackupFileName="_source.zip"; });
 
 #Var for Host
 [string]$bckhost = $env:COMPUTERNAME;
@@ -27,9 +29,11 @@ $arrBackupSrcs += New-Object PSObject -Property (@{ ProfileFolderLoc="\Pictures"
 #Var for User Profile Location
 [string]$bckUsrPrfldr = "C:\Users\" + $bckuser;
 
-#Var Backup Location (Sync'd with Insync)
-[string]$bckfldr = $bckUsrPrfldr + "\DarkDocuments\DarkBackups";
+#Var Backup Location
+[string]$bckfldr = $bckUsrPrfldr + "\DarkBackups\" + $bckhost + "_" + $rptDate;
 
+#Create Backup Folder
+New-Item $bckfldr -ItemType Directory;
 
 #Check to See Local Backup Location Exists
 if(Test-Path $bckfldr)
@@ -56,7 +60,7 @@ if(Test-Path $bckfldr)
     }#End of $arrBackupSrcs Foreach
 
     #Var for Remove Backups Date
-    [datetime]$rmvDate = (Get-Date).AddDays(-7);
+    [datetime]$rmvDate = (Get-Date).AddDays(-14);
 
     #Remove Old Backup Items
     Get-ChildItem -Path $bckfldr | Where-Object {$_.CreationTime -lt $rmvDate -and $_.Name.StartsWith($bckhost.ToLower()) } | Remove-Item -Force #-Recurse
