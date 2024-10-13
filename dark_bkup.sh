@@ -20,7 +20,7 @@ if [ ! -e $bckfldr ]; then
 fi
 
 #Var for Backup File for DarkDocs Folder Daily
-#bckfiledarkdocs=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkdocs.zip"
+bckfiledarkdocs=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkdocs.zip"
 
 #Var for Backup File for DarkRepos Folder Daily
 bckfiledarkrepos=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkrepos.zip"
@@ -29,7 +29,7 @@ bckfiledarkrepos=$bckfldr$bckhost"_$(date +'%Y%m%d')_darkrepos.zip"
 bckfiledoc=$bckfldr$bckhost"_$(date +'%Y%m%d')_documents.zip"
 
 #Var for Backup File for Remmina Settings
-bckfileremmina=$bckfldr$bckhost"_$(date +'%Y%m%d')_remminas.zip"
+#bckfileremmina=$bckfldr$bckhost"_$(date +'%Y%m%d')_remminas.zip"
 
 #Var for Backup File for Pictures 
 bckfilepics=$bckfldr$bckhost"_$(date +'%Y%m%d')_pictures.zip"
@@ -47,7 +47,7 @@ bckfilevim=$bckfldr$bckhost"_$(date +'%Y%m%d')_vim.txt"
 if [ $(awk '{print int($1)}' /proc/uptime) -gt $bckwaitseconds ] && [ ! -f $bckfiledoc ]; then
 
 	#Zip Command to Backup DarkDocs Folder
-	#zip -r $bckfiledarkdocs /home/$bckuser/DarkDocs
+	zip -r $bckfiledarkdocs /home/$bckuser/DarkDocs
 
 	#Zip Command to Backup DarkRepos Folder
 	zip -r $bckfiledarkrepos /home/$bckuser/DarkRepos
@@ -56,7 +56,7 @@ if [ $(awk '{print int($1)}' /proc/uptime) -gt $bckwaitseconds ] && [ ! -f $bckf
 	zip -r $bckfiledoc /home/$bckuser/Documents
 
 	#Zip Command to Backup Remmina Settings
-	zip -r $bckfileremmina /home/$bckuser/.local/share/remmina
+	#zip -r $bckfileremmina /home/$bckuser/.local/share/remmina
 
 	#Zip Command to Backup Pictures Folder
 	zip -r $bckfilepics /home/$bckuser/Pictures
